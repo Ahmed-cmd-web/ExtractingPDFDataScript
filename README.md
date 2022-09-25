@@ -9,5 +9,4 @@ To start,you have to install the following packages:
     pip3 install pdfplumber pandas
 
 
-
-then replace the pdf value with any pdf path.
+then replace the pdf value with any pdf path, or try the example pdfs.
