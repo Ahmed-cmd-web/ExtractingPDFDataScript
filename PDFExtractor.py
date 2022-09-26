@@ -15,8 +15,7 @@ class Extractor:
                 ]
     __symbolRegex="[:][0-9]+"
     __ISINRegex="[:]\s[A-Z0-9]+\s[a-zA-Z]+"
-    __BuySellRegex="[0-9]*\s[@]\s[0-9]+[.][0-9]*\s[=]\s[0-9]*[.][0-9]*\s[a-zA-Z]*[:]\s[0-9]*[.][0-9]*"
-
+    __BuySellRegex="[0-9]*\s[@]\s[0-9]+[.][0-9]*\s[=]\s[0-9]*[.][0-9]*\s[a-zA-Z]*[:]?\s[0-9]*[.][0-9]*"
 
     def __findSymbol(self,target)->list:
         return re.findall(self.__symbolRegex,target)
