@@ -17,16 +17,16 @@ class Extractor:
     __ISINRegex="[:]\s[A-Z0-9]+\s[a-zA-Z]+"
     __BuySellRegex="[0-9]*\s[@]\s[0-9]+[.][0-9]*\s[=]\s[0-9]*[.][0-9]*\s[a-zA-Z]*[:]?\s[0-9]*[.][0-9]*"
 
-    def __findSymbol(self,target)->list:
+    def __findSymbol(self,target:str)->list:
         return re.findall(self.__symbolRegex,target)
 
-    def __findISIN(self,target)->list:
+    def __findISIN(self,target:str)->list:
         return re.findall(self.__ISINRegex,target)
 
-    def __findBuySell(self,arr)->list:
+    def __findBuySell(self,arr:list)->list:
         return [i for i in arr if i is not None and re.findall(self.__BuySellRegex,i)]
 
-    def __isData(self,arr)->bool:
+    def __isData(self,arr:list)->bool:
         if (len(arr)<4 or not arr[2]):
             return False
         res=False
@@ -37,7 +37,7 @@ class Extractor:
             return False
         return arr[0].isdigit() and len(arr[0])>=8 and res
 
-    def __removeNone(self,array)->list:
+    def __removeNone(self,array:list)->list:
         return [i for i in array if i is not None]
 
     def __createOrganizedDf(self,page:list=[])->pd.DataFrame:
@@ -48,9 +48,9 @@ class Extractor:
             Symbol=self.__findSymbol(elem[0])
             buySell=self.__findBuySell(elem)
             if len(Symbol)==1:
-                temp+=Symbol
+                temp+=[Symbol[0].replace(':',' ')]
             if len(ISIN)==1:
-                temp+=ISIN
+                temp+=[ISIN[0].replace(':',' ').replace('Net',"")]
             elif len(buySell)>0:
                 if (temp[5]=="B"):
                     temp+=[buySell[0],None]
